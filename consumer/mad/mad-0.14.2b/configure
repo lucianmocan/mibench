@@ -1211,13 +1211,13 @@ if test "$ac_test_CFLAGS" = set; then
   CFLAGS="$ac_save_CFLAGS"
 elif test $ac_cv_prog_cc_g = yes; then
   if test "$GCC" = yes; then
-    CFLAGS="-g -O3 -Wno-error=implicit-int"
+    CFLAGS="-g -O3 -Wno-error=implicit-int -fgnu89-inline"
   else
     CFLAGS="-g"
   fi
 else
   if test "$GCC" = yes; then
-    CFLAGS="-O3 -Wno-error=implicit-int"
+    CFLAGS="-O3 -Wno-error=implicit-int -fgnu89-inline"
   else
     CFLAGS=
   fi
