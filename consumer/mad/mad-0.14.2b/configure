@@ -1114,7 +1114,7 @@ fi
 fi
 
 # Add compiler flags to allow implicit int warnings instead of errors
-CFLAGS="${CFLAGS} -Wno-error=implicit-int"
+CFLAGS="${CFLAGS} -Wno-error=implicit-int -Wno-error=implicit-function-declaration"
 
 echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works""... $ac_c" 1>&6
 echo "configure:1118: checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works" >&5
