@@ -5731,6 +5731,16 @@ chmod +x $CONFIG_STATUS
 rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
+# Keep shipped subdirectory autotools outputs newer than their inputs.
+# Do NOT touch top-level files here; that can force config.status rechecks.
+for ac_legacy_dir in libz libid3tag libmad; do
+  for ac_legacy_file in aclocal.m4 configure config.h.in stamp-h.in Makefile.in; do
+    if test -f "$ac_legacy_dir/$ac_legacy_file"; then
+      touch "$ac_legacy_dir/$ac_legacy_file"
+    fi
+  done
+done
+
 if test "$no_recursion" != yes; then
 
   # Remove --cache-file and --srcdir arguments so they do not pile up.
