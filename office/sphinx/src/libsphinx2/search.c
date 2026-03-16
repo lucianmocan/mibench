@@ -438,6 +438,11 @@ static uint16 **utt_pscr = NULL;	/* bestpscr for entire utt; scaled */
 
 static void topsen_init ( void );
 static void compute_phone_active (int32 topsenscr, int32 npa_th);
+static void compute_phone_perplexity( void );
+static search_hyp_t *fwdtree_pscr_path ( void );
+#if SEARCH_TRACE_CHAN_DETAILED
+static void load_trace_wordlist (char const *file);
+#endif
 
 /* FIXME: put this in a header file */
 extern void quit (int status, char const *fmt, ...);
@@ -1701,10 +1706,6 @@ void
 search_initialize (void)
 {
     int32 bptable_size = query_lattice_size();
-    
-#if SEARCH_TRACE_CHAN_DETAILED
-    static void load_trace_wordlist ();
-#endif
 
     ForcedRecMode = FALSE;
     
@@ -2265,8 +2266,6 @@ search_finish_fwd (void)
     CHAN_T *hmm, /* *thmm,*/ **acl;
     /* int32 bp, bestbp, bestscore; */
     /* int32 l_scr; */
-    static void compute_phone_perplexity( void );
-    
     if ((CurrentFrame > 0) && (topsen_window > 1)) {
 	/* Wind up remaining frames */
 	for (i = 1; i < topsen_window; i++) {
@@ -2326,7 +2325,6 @@ search_finish_fwd (void)
     /* Get pscr-score for fwdtree recognition */
     {
 	search_hyp_t *pscrpath;
-	static search_hyp_t *fwdtree_pscr_path ( void );
 	
 	if (query_phone_conf ()) {
 	    pscrpath = fwdtree_pscr_path ();

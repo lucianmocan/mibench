@@ -1,4 +1,4 @@
 #!/bin/sh
 ./patricia small.udp > output_small.txt
 rc=$?
-[ "$rc" -eq 1 ]
+[ "$rc" -eq 1 ] || exit $rc

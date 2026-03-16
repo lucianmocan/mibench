@@ -7,6 +7,8 @@
 #
 
 use strict;
+use FindBin;
+use File::Spec;
 
 $| = 1;  # turn off STDOUT buffering 
 
@@ -21,11 +23,13 @@ BEGIN {
   $arch =~ s/i.86/i386/i;
   $arch =~ tr/A-Z/a-z/;
 
-  $s2root = "@prefix@/share/sphinx2";
+  $s2root = $ENV{s2root} || File::Spec->catdir($FindBin::Bin, '..');
   die "please set \$s2root: $!" unless -d $s2root;
   
-  push @INC, "@prefix@/bin", 
-	"$s2root/bin", "$s2root/src/build/$arch/bin";
+  push @INC,
+	$FindBin::Bin,
+	File::Spec->catdir($s2root, 'bin'),
+	File::Spec->catdir($s2root, 'src', 'build', $arch, 'bin');
 }
 
 my $task = "$s2root/model/lm/turtle";
@@ -34,7 +38,11 @@ my $task = "$s2root/model/lm/turtle";
 die "don't know how to do '$task' and cant find $task directory: $!" 
   unless -d $task;
 
-$pgm = "@prefix@/bin/sphinx2-continuous";
+$pgm = $ENV{s2continuous} || File::Spec->catfile($s2root, 'src', 'examples', 'sphinx2-continuous');
+
+if (! -x $pgm) {
+  $pgm = "sphinx2-continuous";
+}
 
 if (! -x $pgm) {
   foreach (@INC) {

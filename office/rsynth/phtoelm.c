@@ -5,6 +5,8 @@
 char *phtoelm_id = "$Id: phtoelm.c,v 1.13 1994/11/08 13:30:50 a904209 Exp a904209 $";
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 #if defined (__STDC__)
 #include <stdarg.h>
 #else

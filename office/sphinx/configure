@@ -789,7 +789,10 @@ fi
 
 
 
-CFLAGS=${CFLAGS:--g -O2 -Wall}
+CC=${CC:-gcc}
+LD=${LD:-gcc}
+CFLAGS=${CFLAGS:--O3 -fcommon -Wno-error=implicit-int -Wno-error=implicit-function-declaration -Wno-error=deprecated-non-prototype}
+LDFLAGS=${LDFLAGS:--fuse-ld=lld -Wl,--allow-multiple-definition}
 
 # Extract the first word of "gcc", so it can be a program name with args.
 set dummy gcc; ac_word=$2

@@ -25,10 +25,9 @@
 #include "gp.h"
 
 /*
- * Because of inconsistent (and sometimes incorrect) header files,
- * we must omit the argument list for popen.
+ * Use an explicit popen prototype for modern toolchains.
  */
-extern FILE *popen( /* P2(const char *, const char *) */ );
+extern FILE *popen(P2(const char *, const char *));
 extern int pclose(P1(FILE *));
 /*
  * This is the only place in Ghostscript that calls 'exit'.  Including
@@ -88,8 +87,7 @@ gp_get_realtime(long *pdt)
 		  }
 	}
 #else						/* All other systems */
-	{	struct timezone tzp;
-		if ( gettimeofday(&tp, &tzp) == -1 )
+	{	if ( gettimeofday(&tp, NULL) == -1 )
 		  {	lprintf("Ghostscript: gettimeofday failed!\n");
 			gs_exit(1);
 		  }

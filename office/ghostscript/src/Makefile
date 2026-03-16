@@ -201,8 +201,9 @@ GCFLAGS=-Dconst= -Wall -Wpointer-arith -Wstrict-prototypes
 #   specific stuff that <math.h> typically needs; nevertheless, we expect
 #   gcc to accept ANSI-style function prototypes and function definitions.
 #XCFLAGS=
+XCFLAGS?=-Dbool=bool_ -D_POSIX_C_SOURCE=200112L -Wno-error=implicit-int -Wno-error=implicit-function-declaration -fpermissive
 
-CFLAGS=-O1 $(GCFLAGS) $(XCFLAGS)
+CFLAGS=-O3 $(GCFLAGS) $(XCFLAGS)
 
 # Define platform flags for ld.
 # SunOS 4.n may need -Bstatic.
@@ -324,7 +325,7 @@ AK=
 # Define the compilation rules and flags.
 
 CCC=$(CC) $(CCFLAGS) -c
-CCAUX=$(CC)
+CCAUX=$(CC) $(XCFLAGS)
 #We can't use -fomit-frame-pointer with -pg....
 #CCLEAF=$(CCC)
 CCLEAF=$(CCC) -fomit-frame-pointer

@@ -167,7 +167,7 @@ gx_cpath_outer_box(const gx_clip_path *pcpath, gs_fixed_rect *pbox)
 
 /* Test if a clipping path includes a rectangle. */
 /* The rectangle need not be oriented correctly, i.e. x0 > x1 is OK. */
-int
+bool
 gx_cpath_includes_rectangle(register const gx_clip_path *pcpath,
   fixed x0, fixed y0, fixed x1, fixed y1)
 {	return
@@ -190,7 +190,7 @@ gx_cpath_set_outside(gx_clip_path *pcpath, bool outside)
 }
 
 /* Return the current outsideness of a clipping path. */
-int
+bool
 gx_cpath_is_outside(const gx_clip_path *pcpath)
 {	return pcpath->list.outside;
 }

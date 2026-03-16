@@ -12,7 +12,7 @@ ARCH = $(shell uname -m)
 # defaults:
 PGM = lame
 CC = gcc
-CC_OPTS =  -O
+CC_OPTS =  -O3
 GTK = 
 GTKLIBS = 
 SNDLIB = -DLAMESNDFILE

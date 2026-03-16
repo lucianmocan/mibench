@@ -20,6 +20,7 @@
 /* PostScript-writing driver */
 #include "math_.h"
 #include "time_.h"
+#include <time.h>
 #include "gx.h"
 #include "gserrors.h"
 #include "gscdefs.h"

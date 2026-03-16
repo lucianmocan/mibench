@@ -19,6 +19,7 @@
 /* zdevcal.c */
 /* %Calendar% IODevice */
 #include "time_.h"
+#include <time.h>
 #include "ghost.h"
 #include "gxiodev.h"
 #include "istack.h"

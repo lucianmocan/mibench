@@ -21,6 +21,7 @@
 #include "math_.h"
 #include "string_.h"
 #include "time_.h"
+#include <time.h>
 #include "gx.h"
 #include "gp.h"
 #include "gscdefs.h"

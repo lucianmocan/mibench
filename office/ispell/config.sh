@@ -1,6 +1,6 @@
 BINDIR='/usr/local/bin'
 CC='gcc'
-CFLAGS='-O2 -g'
+CFLAGS='-O3 -DGENERATE_LIBRARY_PROTOS -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=implicit-int'
 COUNTSUFFIX='.cnt'
 DEFHASH='english.hash'
 DEFLANG='english.aff'
@@ -25,4 +25,5 @@ STATSUFFIX='.stat'
 TERMLIB=''
 TEXINFODIR='/usr/local/info'
 YACC='yacc'
-case "$MAKE_SORTTMP" in "")  SORTTMP="-e /!!SORTTMP!!/s/=.*$/=/";; *) SORTTMP=;; esac
+case "$MAKE_SORTTMP" in "") \
+  SORTTMP="-e /!!SORTTMP!!/s/=.*$/=/";; *) SORTTMP=;; esac

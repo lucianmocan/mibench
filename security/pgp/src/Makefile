@@ -164,12 +164,12 @@ atari:
 	-DUNIT32 -DIDEA32"
 
 linux:
-	$(MAKE) all CC=gcc LD=gcc OBJS_EXT="_80386.o _zmatch.o" \
-	CFLAGS="$(RSAINCDIR) -O6 -g3 -DUNIX -DLINUX -DIDEA32 -DASM"
+	$(MAKE) all CC=gcc LD=gcc OBJS_EXT="" \
+	CFLAGS="$(RSAINCDIR) -O3 -DUNIX -DLINUX -DIDEA32 -DPORTABLE -Wno-implicit-function-declaration"
 
 arm-linux:
-	$(MAKE) all CC=arm-linux-gcc LD=arm-linux-gcc OBJS_EXT="" \
-	CFLAGS="$(RSAINCDIR) -O2 -g0 -DUNIX -DLINUX -DIDEA32 -DPORTABLE"
+	$(MAKE) all CC=gcc LD=gcc OBJS_EXT="" \
+	CFLAGS="$(RSAINCDIR) -O3 -DUNIX -DLINUX -DIDEA32 -DPORTABLE -Wno-implicit-function-declaration"
 
 linux-68k:
 	$(MAKE) all CC=gcc LD=gcc \

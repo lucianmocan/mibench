@@ -1,3 +1,30 @@
 *.o
 *.d
 *.a
+*.dev
+
+# Generic benchmark/runtime outputs
+**/output*
+
+# Common generated files from autotools/configure runs
+**/autom4te.cache/
+**/.libs/
+**/_libs/
+**/config.log
+**/config.status
+**/config.cache
+**/libtool
+**/stamp-h*
+**/compile
+**/depcomp
+
+# Backup/temp files
+**/*~
+**/*.old
+
+# Known generated artifacts in this tree
+security/pgp/src/_zmatch.s
+security/pgp/tests/*.pgp
+security/pgp/tests/conv_input.txt
+consumer/typeset/lout.li
+consumer/typeset/*.lout.ld

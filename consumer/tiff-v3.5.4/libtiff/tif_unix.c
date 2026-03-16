@@ -31,29 +31,42 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdint.h>
+
+static int
+thandle_to_int(thandle_t fd)
+{
+	return (int)(intptr_t)fd;
+}
+
+static thandle_t
+int_to_thandle(int fd)
+{
+	return (thandle_t)(intptr_t)fd;
+}
 
 static tsize_t
 _tiffReadProc(thandle_t fd, tdata_t buf, tsize_t size)
 {
-	return ((tsize_t) read((int) fd, buf, (size_t) size));
+	return ((tsize_t) read(thandle_to_int(fd), buf, (size_t) size));
 }
 
 static tsize_t
 _tiffWriteProc(thandle_t fd, tdata_t buf, tsize_t size)
 {
-	return ((tsize_t) write((int) fd, buf, (size_t) size));
+	return ((tsize_t) write(thandle_to_int(fd), buf, (size_t) size));
 }
 
 static toff_t
 _tiffSeekProc(thandle_t fd, toff_t off, int whence)
 {
-	return ((toff_t) lseek((int) fd, (off_t) off, whence));
+	return ((toff_t) lseek(thandle_to_int(fd), (off_t) off, whence));
 }
 
 static int
 _tiffCloseProc(thandle_t fd)
 {
-	return (close((int) fd));
+	return (close(thandle_to_int(fd)));
 }
 
 #include <sys/stat.h>
@@ -63,10 +76,10 @@ _tiffSizeProc(thandle_t fd)
 {
 #ifdef _AM29K
 	long fsize;
-	return ((fsize = lseek((int) fd, 0, SEEK_END)) < 0 ? 0 : fsize);
+	return ((fsize = lseek(thandle_to_int(fd), 0, SEEK_END)) < 0 ? 0 : fsize);
 #else
 	struct stat sb;
-	return (toff_t) (fstat((int) fd, &sb) < 0 ? 0 : sb.st_size);
+	return (toff_t) (fstat(thandle_to_int(fd), &sb) < 0 ? 0 : sb.st_size);
 #endif
 }
 
@@ -79,7 +92,7 @@ _tiffMapProc(thandle_t fd, tdata_t* pbase, toff_t* psize)
 	toff_t size = _tiffSizeProc(fd);
 	if (size != (toff_t) -1) {
 		*pbase = (tdata_t)
-		    mmap(0, size, PROT_READ, MAP_SHARED, (int) fd, 0);
+		    mmap(0, size, PROT_READ, MAP_SHARED, thandle_to_int(fd), 0);
 		if (*pbase != (tdata_t) -1) {
 			*psize = size;
 			return (1);
@@ -118,7 +131,7 @@ TIFFFdOpen(int fd, const char* name, const char* mode)
 	TIFF* tif;
 
 	tif = TIFFClientOpen(name, mode,
-	    (thandle_t) fd,
+	    int_to_thandle(fd),
 	    _tiffReadProc, _tiffWriteProc,
 	    _tiffSeekProc, _tiffCloseProc, _tiffSizeProc,
 	    _tiffMapProc, _tiffUnmapProc);

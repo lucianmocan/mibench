@@ -83,6 +83,10 @@
 #define NO8BIT		/* Remove this if you use ISO character sets */
 #undef USG		/* Define this on System V */
 
+/* Use workspace compiler alias and compatibility flags. */
+#define CC	"gcc"
+#define CFLAGS	"-O3 -DGENERATE_LIBRARY_PROTOS -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=implicit-int"
+
 /*
  * Important directory paths
  */

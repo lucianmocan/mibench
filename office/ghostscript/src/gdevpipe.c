@@ -28,9 +28,7 @@
 #include "gxiodev.h"
 
 /* popen isn't POSIX-standard, so we declare it here. */
-/* Because of inconsistent (and sometimes incorrect) header files, */
-/* we must omit the argument list. */
-extern FILE *popen( /* P2(const char *, const char *) */ );
+extern FILE *popen(P2(const char *, const char *));
 extern int pclose(P1(FILE *));
 
 /* The pipe IODevice */

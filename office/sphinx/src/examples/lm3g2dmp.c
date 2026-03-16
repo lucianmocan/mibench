@@ -361,7 +361,7 @@ static unigram_t *NewUnigramTable (n_ug)
  * returns a pointer to a new language model record.  The size is passed in
  * as a parameter.
  */
-static lm_t *
+lm_t *
 NewModel (n_ug, n_bg, n_tg, n_dict)
     int32 n_ug;
     int32 n_bg;
@@ -993,7 +993,7 @@ static int32 lm_read (char *filename, char *lmname, double lw, double uw, double
 }
 
 
-static void lm_init_oov ( void )
+void lm_init_oov ( void )
 {
 #if (! NO_DICT)
     int32 i, j, baseid;
@@ -1028,7 +1028,7 @@ static void lm_init_oov ( void )
  * otherwise -1.
  * (Currently some problems with adding alternative pronunciations...)
  */
-static int32 lm_add_word (lm_t *model, int32 dictwid)
+int32 lm_add_word (lm_t *model, int32 dictwid)
 {
 #if (! NO_DICT)
     int32 u;
@@ -1070,7 +1070,7 @@ static int32 lm_add_word (lm_t *model, int32 dictwid)
 /*
  * Add named model to list of models.  If another with same name exists, delete it first.
  */
-static void lm_add (char const *lmname, lm_t *model, double lw, double uw, double wip)
+void lm_add (char const *lmname, lm_t *model, double lw, double uw, double wip)
 {
     if (lmname_to_id (lmname) >= 0)
 	lm_delete (lmname);
@@ -1094,7 +1094,7 @@ static void lm_add (char const *lmname, lm_t *model, double lw, double uw, doubl
 /*
  * Delete named LM from list of LMs and reclaim all space.
  */
-static int32 lm_delete (char const *name)
+int32 lm_delete (char const *name)
 {
     int32 i, u;
     lm_t *model;
@@ -1140,7 +1140,7 @@ static int32 lm_delete (char const *name)
  * Set the active LM to the one identified by "name".  Return 0 if successful,
  * -1 otherwise.
  */
-static int32 lm_set_current (char const *name)
+int32 lm_set_current (char const *name)
 {
     int32 i;
     
@@ -1172,7 +1172,7 @@ static int32 lmname_to_id (char const *name)
     return ((i < n_lm) ? i : -1);
 }
 
-static lm_t *lm_name2lm (char const *name)
+lm_t *lm_name2lm (char const *name)
 {
     int32 i;
     
@@ -1180,7 +1180,7 @@ static lm_t *lm_name2lm (char const *name)
     return ((i >= 0) ? lmset[i].lm : NULL);
 }
 
-static char *get_current_lmname ()
+char *get_current_lmname ()
 {
     int32 i;
     
@@ -1188,12 +1188,12 @@ static char *get_current_lmname ()
     return ((i < n_lm) ? lmset[i].name : NULL);
 }
 
-static lm_t *lm_get_current ()
+lm_t *lm_get_current ()
 {
     return (lmp);
 }
 
-static int32 get_n_lm ()
+int32 get_n_lm ()
 {
     return (n_lm);
 }
@@ -1201,7 +1201,7 @@ static int32 get_n_lm ()
 /*
  * dict base wid; check if present in LM.  return TRUE if present, FALSE otherwise.
  */
-static int32 dictwd_in_lm (wid)
+int32 dictwd_in_lm (wid)
     int32 wid;
 {
     return (lmp->dictwid_map[wid] >= 0);
@@ -1588,7 +1588,7 @@ static int32 lm3g_dump (file, model, lmfile, mtime)
     return 0;
 }
 
-static void lmSetStartSym (char const *sym)
+void lmSetStartSym (char const *sym)
 /*----------------------------*
  * Description - reconfigure the start symbol
  */
@@ -1596,7 +1596,7 @@ static void lmSetStartSym (char const *sym)
     start_sym = (char *) salloc(sym);
 }
 
-static void lmSetEndSym (char const *sym)
+void lmSetEndSym (char const *sym)
 /*----------------------------*
  * Description - reconfigure the end symbol
  */
@@ -1692,7 +1692,7 @@ int main (argc, argv)
 #define BINARY_SEARCH_THRESH	16
 
 
-static int32 lm3g_ug_score (int32 wid)
+int32 lm3g_ug_score (int32 wid)
 {
     int32 lwid;
     
@@ -1727,7 +1727,7 @@ static int32 find_bg (bigram_t *bg, int32 n, int32 w)
 
 
 /* w1, w2 are dictionary (base-)word ids */
-static int32 lm3g_bg_score (int32 w1, int32 w2)
+int32 lm3g_bg_score (int32 w1, int32 w2)
 {
     int32 lw1, lw2, i, n, b, score;
     lm_t *lm;
@@ -1817,7 +1817,7 @@ static int32 find_tg (trigram_t *tg, int32 n, int32 w)
 
 
 /* w1, w2, w3 are dictionary wids */
-static int32 lm3g_tg_score (int32 w1, int32 w2, int32 w3)
+int32 lm3g_tg_score (int32 w1, int32 w2, int32 w3)
 {
     int32 lw1, lw2, lw3, i, n, score;
     lm_t *lm;
@@ -1870,7 +1870,7 @@ static int32 lm3g_tg_score (int32 w1, int32 w2, int32 w3)
 }
 
 
-static void lm3g_cache_reset ( void )
+void lm3g_cache_reset ( void )
 {
     int32 i;
     lm_t *lm;
@@ -1900,17 +1900,17 @@ static void lm3g_cache_reset ( void )
 }
 
 
-static void lm3g_cache_stats_dump (FILE *file)
+void lm3g_cache_stats_dump (FILE *file)
 {
 }
 
 
-static void lm_next_frame ( void )
+void lm_next_frame ( void )
 {
 }
 
 
-static int32 lm3g_raw_score (int32 score)
+int32 lm3g_raw_score (int32 score)
 {
     score -= lmp->log_wip;
     score *= lmp->invlw;

@@ -1056,6 +1056,9 @@ fi
     esac
   fi
   test -z "$CC" && { echo "configure: error: no acceptable cc found in \$PATH" 1>&2; exit 1; }
+
+# Add compiler flags to allow implicit int warnings instead of errors
+CFLAGS="${CFLAGS} -Wno-error=implicit-int"
 fi
 
 echo $ac_n "checking whether the C compiler ($CC $CFLAGS $LDFLAGS) works""... $ac_c" 1>&6

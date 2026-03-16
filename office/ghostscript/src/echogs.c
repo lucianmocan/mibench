@@ -19,13 +19,11 @@
 /* echogs.c */
 /* 'echo'-like utility */
 #include <stdio.h>
-/* Some brain-damaged environments (e.g. Sun) don't include */
-/* prototypes for fputc/fputs in stdio.h! */
-extern int fputc(), fputs();
 /* Some systems have time_t in sys/types.h rather than time.h. */
 #include <sys/types.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 #include <time.h>		/* for ctime */
 /* The VMS environment uses different values for success/failure exits: */
 #ifdef VMS
@@ -80,8 +78,10 @@ extern int fputc(), fputs();
  * which writes 'a b'.
  */
 
-static int hputc(), hputs();
+static int hputc(int ch, FILE *out);
+static int hputs(const char *str, FILE *out);
 
+int
 main(int argc, char *argv[])
 {	FILE *out = stdout;
 	FILE *in;
@@ -92,7 +92,8 @@ main(int argc, char *argv[])
 	char fname[FNSIZE];
 	int newline = 1;
 	int interact = 0;
-	int (*eputc)() = fputc, (*eputs)() = fputs;
+	int (*eputc)(int, FILE *) = fputc;
+	int (*eputs)(const char *, FILE *) = fputs;
 #define LINESIZE 1000
 	char line[LINESIZE];
 	char sw = 0, sp = 0, hexx = 0;
@@ -288,7 +289,7 @@ hputc(int ch, FILE *out)
 }
 
 static int
-hputs(char *str, FILE *out)
+hputs(const char *str, FILE *out)
 {	while ( *str ) hputc(*str++ & 0xff, out);
 	return 0;
 }

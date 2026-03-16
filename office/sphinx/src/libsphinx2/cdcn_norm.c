@@ -48,6 +48,16 @@
 #include <math.h>
 #include "cdcn.h"
 
+static void
+actual_cdcn_norm(float variance[][NUM_COEFF+1],
+         float *prob,
+         float *tilt,
+         float *noise,
+         float means[][NUM_COEFF+1],
+         float corrbook[][NUM_COEFF+1],
+         int num_codes,
+         float z[NUM_COEFF+1]);
+
 /************************************************************************
  *   Dummy routine to convert from suitcase to sane varibles
  ***************************************************************************/
@@ -55,8 +65,6 @@
 void cdcn_norm (float z[NUM_COEFF+1], /* The input cepstrum */
 		CDCN_type *cdcn_variables)
 {
-    /* Multidimensional arrays, yuck. */
-    static void actual_cdcn_norm();
     float *variance, *prob, *tilt, *noise, *codebook, *corrbook;
     int num_codes;
 

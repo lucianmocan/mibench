@@ -49,6 +49,16 @@
 #include <math.h>
 #include "cdcn.h"
 
+static float initialize (float data[][NUM_COEFF+1], int num_frames,
+             float *noise, float tilt[], float speech_threshold,
+             float codebook[][NUM_COEFF+1], float *prob,
+             float var[][NUM_COEFF+1], int ncodes);
+static void correction(float *tilt, float *noise, float *codebook,
+               float *corrbook, int num_codes);
+static float max_q (float *variance, float *prob, float *noise, float *tilt,
+            float *codebook, float *corrbook, int num_codes,
+            float *z, int num_frames);
+
 /*************************************************************************
  *
  * cdcn_update finds the vectors x, noise
@@ -68,12 +78,6 @@ cdcn_update (float *z,		/* The observed cepstrum vectors */
     float       distortion;
     float	*noise, *tilt, *codebook, *prob, *variance, *corrbook;
     int 	num_codes;
-    /* Multidimensional arrays, gar gar gar */
-    static float initialize (float *, int, float *, float *, float,
-			     float *, float *, float *, int);
-    static void correction(float *, float *, float *, float *, int);
-    static float max_q (float *, float *, float *, float *, float *,
-			float *, int, float *, int);
 
     /*
      * If error, dont bother

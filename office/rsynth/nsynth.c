@@ -37,6 +37,7 @@ char *nsynth_id = "$Id: nsynth.c,v 1.13 1994/11/08 13:30:50 a904209 Exp a904209 
 #include <useconfig.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "proto.h"
 #include "nsynth.h"
 #ifndef PI
@@ -67,7 +68,7 @@ resonator_t, *resonator_ptr;
 /* Various global variables */
 
 int time_count = 0;
-static warnsw;                    /* JPI added for f0 flutter */
+static int warnsw;                /* JPI added for f0 flutter */
 
 /* COUNTERS */
 

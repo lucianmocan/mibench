@@ -119,7 +119,7 @@ typedef struct
     }
 		outlist_t;		/* Output description list */
 
-static int		(*compare) () = strcmp; /* Comparison function */
+static int		(*compare) (const char * a, const char * b) = strcmp;
 static char *		emptyfield = ""; /* Use this to replace empty fields */
 static FILE *		file1;		/* First file to join */
 static FILE *		file2;		/* Second file to join */
@@ -205,10 +205,10 @@ int main (argc, argv)			/* Join files */
 		runs &= ~FLD_RUNS;
 		break;
 	    case 's':
-		compare = strscmp;
+		compare = (int (*) (const char * a, const char * b)) strscmp;
 		break;
 	    case 'u':
-		compare = strucmp;
+		compare = (int (*) (const char * a, const char * b)) strucmp;
 		break;
 	    default:
 		usage ();

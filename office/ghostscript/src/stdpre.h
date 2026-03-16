@@ -189,6 +189,7 @@ typedef unsigned long ulong;
  * We can't make it an enumerated type, because ints don't coerce
  * freely to enums (although the opposite is true).
  */
+#if !defined(__STDC_VERSION__) || (__STDC_VERSION__ < 202311L)
 typedef int bool;
 /*
  * MetroWerks CodeWarrior predefines true and false, probably as 1 and 0.
@@ -198,6 +199,7 @@ typedef int bool;
 #define false ((bool)0)
 #undef true
 #define true ((bool)1)
+#endif
 
 /*
  * Compilers disagree as to whether macros used in macro arguments

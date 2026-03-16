@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 #include "tiffio.h"
 
 #define	streq(a,b)	(strcmp((a),(b)) == 0)
