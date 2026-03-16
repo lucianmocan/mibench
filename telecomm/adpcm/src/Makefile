@@ -17,7 +17,7 @@ LFLAGS = $(LFLAGS) -static
 #
 # End of addition
 ######################################################################
-CFLAGS = -static -O3
+CFLAGS = -static -O3 -Wno-error=implicit-function-declaration -Wno-error=implicit-int
 
 # May need this on a sun:
 # CFLAGS=-O -I/usr/demo/SOUND

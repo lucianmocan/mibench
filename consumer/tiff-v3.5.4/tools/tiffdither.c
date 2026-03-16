@@ -236,6 +236,10 @@ main(int argc, char* argv[])
 		    " %s: Sorry, only handle 8-bit samples.\n", argv[0]);
 		return (-1);
 	}
+	if (fillorder == 0) {
+		if (!TIFFGetField(in, TIFFTAG_FILLORDER, &fillorder))
+			fillorder = FILLORDER_MSB2LSB;
+	}
 	out = TIFFOpen(argv[optind+1], "w");
 	if (out == NULL)
 		return (-1);

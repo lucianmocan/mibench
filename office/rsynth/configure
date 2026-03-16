@@ -564,9 +564,9 @@ rm -f conftest*
 fi
     echo "$ac_t""$ac_cv_prog_gcc_g" 1>&4
     if test $ac_cv_prog_gcc_g = yes; then
-      CFLAGS="-g -O"
+      CFLAGS="-g -O3"
     else
-      CFLAGS="-O"
+      CFLAGS="-O3"
     fi
   fi
 else
@@ -576,8 +576,13 @@ fi
 
 
 if test "$GCC" != yes; then
-CFLAGS="-O"
+CFLAGS="-O3"
 fi 
+
+case " $CFLAGS " in
+  *" -Wno-error=implicit-function-declaration "*) ;;
+  *) CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration" ;;
+esac
 
 echo $ac_n "checking for POSIXized ISC""... $ac_c" 1>&4
 if test -d /etc/conf/kconfig.d &&
@@ -1396,6 +1401,11 @@ EOF
 else
   echo "$ac_t""no" 1>&4
 fi
+
+case " $LIBS " in
+  *" -lm "*) ;;
+  *) LIBS="$LIBS -lm" ;;
+esac
 
 
 # If we find X, set shell vars x_includes and x_libraries to the

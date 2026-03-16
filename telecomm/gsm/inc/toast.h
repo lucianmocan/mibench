@@ -9,6 +9,10 @@
 #ifndef	TOAST_H
 #define	TOAST_H				/* Guard against multiple includes */
 
+#ifndef _DEFAULT_SOURCE
+#define _DEFAULT_SOURCE 1
+#endif
+
 #include "config.h"
 
 #include <sys/types.h>
